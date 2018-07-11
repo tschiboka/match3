@@ -582,16 +582,3 @@ function displayResult() {
        } // end of else
     }, 700); // end of timer
 } // end of displayResult
-
-
-
-
-
-
-
-
-
-
-
-
-//
