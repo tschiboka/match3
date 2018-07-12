@@ -82,7 +82,7 @@ var board = [],
     score = [1,1,1,1,1,1,1,
              1,1,1,1,1,1,1,
              1,1,1,1,1,1,1,
-             1,0,0,0,0,0,0,
+             1,1,0,0,0,0,0,
              0,0,0,0,0,0,0,
              0,0,0,0,0,0,0,
              0,0,0,0,0,0,0], // 49 slots
@@ -201,6 +201,11 @@ var board = [],
             condition : [(p,b) => p >= 200 && b[4][0] > 11 && b[4][9] > 11,
                          (p,b) => p >= 300 && b[4][0] > 11 && b[4][9] > 11,
                          (p,b) => p >= 400 && b[4][0] > 11 && b[4][9] > 11]},
+           {description : "Get 200 points while all flowers have to be on the basket. You have 2 minutes!",
+            time : 120,
+            condition : [(p,b) => p >= 200 && b[5][4] > 11 && b[5][5] > 11,
+                         (p,b) => p >= 300 && b[5][4] > 11 && b[5][5] > 11,
+                         (p,b) => p >= 400 && b[5][4] > 11 && b[5][5] > 11]},
              ]; // end of levels object array
 
 
@@ -380,7 +385,17 @@ function startLevel(lev) {
                     board[5][0] = board[5][9] = 18;
                     board[6].map((c,ci)=>board[6][ci] = ci<4||ci>5?18:c); // horizontal wall w gap
                     displayBoard(board);
-                    break; }
+                    break; }        
+        case "24": {fruitNumber = 8;
+                    board = randomBoard(fruitNumber);
+                    board[0][0] = 12;
+                    board[0][9] = 13;
+                    board[9][2] = board[9][3] = board[9][4] = board[9][5] = board[9][6] = board[9][7] = 18;
+                    board[8][3] = board[8][4] = board[8][5] = board[8][6] = 18;
+                    board[7][4] = board[7][5] = 18;
+                    board[6][4] = board[6][5] = 17;
+                    displayBoard(board);
+                    break; }        
     } // end of switch
     startTimer(levels[lev-1].time);
 } // end of startLevel
