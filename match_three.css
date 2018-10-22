@@ -169,6 +169,13 @@ td {
   #progressbar {
     margin-top: 3vw;
   }
+  #signature {
+    font-size: 2vh;
+  }
+  #result-stars,
+  .panel {
+    font-size: 4vh;
+  }
 }
 
 @media screen and (max-width: 600px) and (orientation: landscape) {
