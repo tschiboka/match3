@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="EN-GB">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta charset="UTF-8" />
@@ -7,79 +8,101 @@
   <link type="text/css" rel="stylesheet" href="match_three.css" />
   <script type="text/javascript" src="match_three.js"></script>
 </head>
+
 <body onload="start();">
   <div id="container">
     <p id="stats">
       <span id="points">0</span>
-       points / level
+
+      points / level
+
       <span id="level">0</span>
     </p>
+
     <div id="table-div">
       <div id="message-panel" class="panel">
         <p id="message">message</p>
+
         <p id="result-stars">
           <span id="result-star1">&#9733;</span>
+
           <span id="result-star2">&#9733;</span>
+
           <span id="result-star3">&#9733;</span>
         </p>
+
         <div id="start-button">Start</div>
       </div>
+
       <div id="no-more-moves" class="panel">
         <p>No more moves!</p>
       </div>
+
       <div id="level-panel" class="panel">
-          <!-- CREATE LEVEL SELECTION PANEL -->
-          <script type="text/javascript">
-            const lrNum = 7, lcNum = 7;
-            let lvl=0;
-            let ldiv = document.getElementById("level-panel"),
-                ltbl = document.createElement("table");
-                l_bdy = document.createElement("tbody");
-            l_bdy.id = "levels";
-            for (let r=0; r<lrNum; r++) {
-                let row = document.createElement("tr");
-                for (let c=0; c<lcNum; c++) {
-                    lvl++;
-                    let cell = document.createElement("td");
-                    cell.id = `l${lvl}`;
-                    cell.className = "level-button";
-                    let html = `<p class='level-text'>${lvl}</p><p id=lr${r}c${c}-stars class='level-text level-star'>`+
-                    `<span id=star${lvl}_1>&#9734;</span>`+
-                    `<span id=star${lvl}_2>&#9734;</span>`+
-                    `<span id=star${lvl}_3>&#9734;</span></p>`;
-                    cell.innerHTML = html;
-                    row.appendChild(cell);
-                } // end of onner for
-                l_bdy.appendChild(row);
-            } // end of outer for
-            ltbl.appendChild(l_bdy);
-            ldiv.appendChild(ltbl);
-          </script>
+        <!-- CREATE LEVEL SELECTION PANEL -->
+        <script type="text/javascript">
+          const lrNum = 7, lcNum = 7;
+          let lvl = 0;
+          let ldiv = document.getElementById("level-panel"),
+            ltbl = document.createElement("table");
+          l_bdy = document.createElement("tbody");
+          l_bdy.id = "levels";
+
+          for (let r = 0; r < lrNum; r++) {
+            let row = document.createElement("tr");
+
+            for (let c = 0; c < lcNum; c++) {
+              lvl++;
+              let cell = document.createElement("td");
+              cell.id = `l${lvl}`;
+              cell.className = "level-button";
+              let html = `<p class='level-text'>${lvl}</p><p id=lr${r}c${c}-stars class='level-text level-star'>` +
+                `<span id=star${lvl}_1>&#9734;</span>` +
+                `<span id=star${lvl}_2>&#9734;</span>` +
+                `<span id=star${lvl}_3>&#9734;</span></p>`;
+              cell.innerHTML = html;
+              row.appendChild(cell);
+            } // end of onner for
+
+            l_bdy.appendChild(row);
+          } // end of outer for
+
+          ltbl.appendChild(l_bdy);
+          ldiv.appendChild(ltbl);
+        </script>
       </div>
-      <!--CREATE TABLE-->
+
+      <!--CREATE BOARD TABLE-->
       <script type="text/javascript">
         const rNum = dNum = 10;
         let tbd = document.getElementById("table-div"),
-            tbl = document.createElement("table"),
-            tbl_bdy = document.createElement("tbody");
+          tbl = document.createElement("table"),
+          tbl_bdy = document.createElement("tbody");
         tbl.id = "board";
-        for (let r=0; r<rNum; r++) {
-            let row = document.createElement("tr");
-            for(let d=0; d<dNum; d++) {
-                let cell = document.createElement("td");
-                cell.id = `r${r}c${d}`;
-                row.appendChild(cell);
-            } // end of for td
-            tbl_bdy.appendChild(row);
+
+        for (let r = 0; r < rNum; r++) {
+          let row = document.createElement("tr");
+
+          for (let d = 0; d < dNum; d++) {
+            let cell = document.createElement("td");
+            cell.id = `r${r}c${d}`;
+            row.appendChild(cell);
+          } // end of for td
+
+          tbl_bdy.appendChild(row);
         } // end of for tr
+
         tbl.appendChild(tbl_bdy);
         tbd.appendChild(tbl);
       </script>
     </div>
+
     <div id="progressbar">
       <div id="signature"> Made with &hearts; by Tschiboka</div>
+
       <div id="progress"></div>
     </div>
   </div>
 </body>
+
 </html>

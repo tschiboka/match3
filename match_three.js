@@ -4,6 +4,7 @@ function start() {
   setMessageBoardSize();
   window.onresize = setMessageBoardSize;
   updateLevelPanel();
+  preloadPics(); // preload the pictures in case game goes off-line
   let levelIds = document
     .getElementById("level-panel")
     .getElementsByClassName("level-button");
@@ -733,39 +734,55 @@ function startLevel(lev) {
   startTimer(levels[lev - 1].time);
 } // end of startLevel
 
+// picName is global, it is used by preloadPics and displayBoadr functions
+var picName = [
+  "cherry",
+  "blueberry",
+  "kiwi",
+  "lemon",
+  "melone",
+  "coco",
+  "banana",
+  "strawberry",
+  "peach",
+  "lime", // 0 - 9 FRUITS
+  "explosion",
+  "transp", // 10, 11 MISC
+  "flower_blue1",
+  "flower_camomille",
+  "flower_lightblue",
+  "flower_orange",
+  "flower_pink", // 12 - 16 FLOWERS
+  "basket",
+  "wall"
+]; // 17 BASKET 18 WALL
+
+// preload pictures, when game goes off-line they are still available
+
+function preloadPics() {
+  // get the first table cell and assign all pictures to it, so they'll be in memory
+  const cell = document.querySelector("#r0c0"); // it can be any arbitary element though
+
+  console.log(cell);
+  picName.forEach(pic => {
+    cell.style.background = `url(images/${pic}.png)`;
+  }); // end of iterating pics
+} // end of preload pic
+
 function displayBoard(b) {
-  const fName = [
-    "cherry",
-    "blueberry",
-    "kiwi",
-    "lemon",
-    "melone",
-    "coco",
-    "banana",
-    "strawberry",
-    "peach",
-    "lime", // 0 - 9 FRUITS
-    "explosion",
-    "transp", // 10, 11 MISC
-    "flower_blue1",
-    "flower_camomille",
-    "flower_lightblue",
-    "flower_orange",
-    "flower_pink", // 12 - 16 FLOWERS
-    "basket",
-    "wall"
-  ]; // 17 BASKET 18 WALL
-  b.map((row, ri) =>
-    row.map((cell, ci) => {
-      const tblCell = document.getElementById(`r${ri}c${ci}`),
-        clr =
-          (ri % 2 == 1 && ci % 2 == 0) || (ri % 2 == 0 && ci % 2 == 1)
-            ? "rgba(48,32,55,0.1)"
-            : "rgba(250,250,250,0.1)";
-      tblCell.style.background = `${clr} url(images/${fName[cell]}.png)`;
-      tblCell.style.backgroundSize = "cover";
-    })
-  );
+  b.map(
+    (row, ri) =>
+      row.map((cell, ci) => {
+        const tblCell = document.getElementById(`r${ri}c${ci}`),
+          clr =
+            (ri % 2 == 1 && ci % 2 == 0) || (ri % 2 == 0 && ci % 2 == 1)
+              ? "rgba(48,32,55,0.1)"
+              : "rgba(250,250,250,0.1)";
+        tblCell.style.background = `${clr} url(images/${picName[cell]}.png)`;
+        tblCell.style.backgroundSize = "cover";
+      }) // end of map cell
+  ); // end of map row
+
   board = b;
   checkNoMoreMoves();
   return b;
