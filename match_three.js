@@ -24,7 +24,7 @@ function start() {
           .filter(neighbour => isMobileCell(neighbour)); // get rid of walls and baskets
 
       neighbours.forEach(neighbour => {
-        neighbour.style.transform = `scale(${size})`;
+        neighbour.style.transform = neighbour.style.webkitTransform = `scale(${size})`;
       }); // end of scaling neighbours
       console.log(neighbours);
     };
@@ -99,7 +99,10 @@ function start() {
         select(this);
         // rescale the boards cells
         const cells = document.querySelectorAll(".board-cell");
-        cells.forEach(cell => (cell.style.transform = ""));
+        cells.forEach(
+          cell =>
+            (cell.style.transform = neighbour.style.webkitTransform = none)
+        );
         mouseIsDown = false;
       }
     }); // end of mouseup event
@@ -1093,7 +1096,9 @@ function checkNoMoreMoves() {
 function displayResult() {
   // rescale the boards cells
   const cells = document.querySelectorAll(".board-cell");
-  cells.forEach(cell => (cell.style.transform = ""));
+  cells.forEach(
+    cell => (cell.style.transform = neighbour.style.webkitTransform = none)
+  );
 
   document.getElementById("message-panel").style.visibility = "visible";
   document.getElementById("start-button").style.visibility = "hidden"; // in order not to fire start button again
