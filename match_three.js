@@ -1,13 +1,35 @@
 // jshint esversion: 6
 
 function start() {
-  const getCellXY = elem => elem.id.match(/\d/g), // get a board cell coordinates
+  const getCellXY = elem => elem.id.match(/\d/g).map(Number), // get a board cell coordinates
     isBoardCell = elem => /r.c./g.test(elem.id), // check if event is on a board cell
     // check if element is not a basket or a wall, the rest are all movable elements
     isMobileCell = elem =>
       board[getCellXY(elem)[0]][getCellXY(elem)[1]] != 18 &&
       board[getCellXY(elem)[0]][getCellXY(elem)[1]] != 17,
-    isMouseDown = false;
+    // scale up neighbouring cells if they are mobile
+    scaleValidMoves = (elem, size) => {
+      const [x, y] = getCellXY(elem),
+        ids = [
+          // get the ids north east south west
+          `#r${x}c${y - 1}`,
+          `#r${x + 1}c${y}`,
+          `#r${x}c${y + 1}`,
+          `#r${x - 1}c${y}`
+        ],
+        // get the corrisponding elements
+        neighbours = ids
+          .map(id => document.querySelector(id))
+          .filter(neighbour => neighbour) // filter nulls
+          .filter(neighbour => isMobileCell(neighbour)); // get rid of walls and baskets
+
+      neighbours.forEach(neighbour => {
+        neighbour.style.transform = `scale(${size})`;
+      }); // end of scaling neighbours
+      console.log(neighbours);
+    };
+
+  let mouseIsDown = false; // mousemove event needs to know so when drags it fanscale up neighboring
 
   setMessageBoardSize();
   window.onresize = setMessageBoardSize;
@@ -68,12 +90,26 @@ function start() {
     el.addEventListener("mousedown", function(event) {
       if (!pause && gameOn) {
         event.preventDefault();
+        mouseIsDown = true;
         select(this);
       }
     }); // end of mousedown event
     el.addEventListener("mouseup", function() {
-      if (!pause && gameOn) select(this);
+      if (!pause && gameOn) {
+        select(this);
+        // rescale the boards cells
+        const cells = document.querySelectorAll(".board-cell");
+        cells.forEach(cell => (cell.style.transform = ""));
+        mouseIsDown = false;
+      }
     }); // end of mouseup event
+
+    el.addEventListener("mousemove", function() {
+      if (!pause && gameOn && mouseIsDown) {
+        scaleValidMoves(el, 1.1);
+        mouseIsDown = false;
+      }
+    }); // end of mousemove event
 
     // mobile dragging
     el.addEventListener("touchmove", function(event) {
@@ -84,7 +120,7 @@ function start() {
     }); // end on touchmove event
 
     el.addEventListener("touchend", function(event) {
-      // the thouch end events element is the same as touch end by default
+      // the thouchend events element is the same as touch end by default
       // get the touch end coordinates and find out which element is on that position
       // this is going to be the real touch end element
       const x = event.changedTouches[0].pageX,
@@ -778,7 +814,6 @@ function preloadPics(...args) {
       img = new Image();
       img.src = `images/${pic}.png`;
       pictures.push(img);
-      console.log(img);
     }); // and of map piccture names
   } catch (e) {} // end of try
 } // end of preload pic
@@ -1055,6 +1090,10 @@ function checkNoMoreMoves() {
 } // end of checkNoMoreMoves
 
 function displayResult() {
+  // rescale the boards cells
+  const cells = document.querySelectorAll(".board-cell");
+  cells.forEach(cell => (cell.style.transform = ""));
+
   document.getElementById("message-panel").style.visibility = "visible";
   document.getElementById("start-button").style.visibility = "hidden"; // in order not to fire start button again
   let starsGiven = 0;
