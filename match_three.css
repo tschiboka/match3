@@ -65,6 +65,7 @@ td {
   visibility: hidden;
   opacity: 0.6;
 }
+
 #signature {
   width: 100%;
   color: rgba(255, 255, 255, 0.3);
@@ -184,5 +185,32 @@ td {
     -webkit-transform-origin: left top;
     transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
+  #container {
+    width: 100vh;
+    height: 100vw;
+  }
+
+  td {
+    width: 10vh;
+    height: 10vh;
+  }
+
+  #stats {
+    font-size: 3.5vw;
+  }
+
+  #level-panel td {
+    font-size: 3vw;
+  }
+
+  .level-text {
+    font-size: 1.8vw;
   }
 }
