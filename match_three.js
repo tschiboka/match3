@@ -1,37 +1,53 @@
 // jshint esversion: 6
 
 function start() {
+  const getCellXY = elem => elem.id.match(/\d/g), // get a board cell coordinates
+    isBoardCell = elem => /r.c./g.test(elem.id), // check if event is on a board cell
+    // check if element is not a basket or a wall, the rest are all movable elements
+    isMobileCell = elem =>
+      board[getCellXY(elem)[0]][getCellXY(elem)[1]] != 18 &&
+      board[getCellXY(elem)[0]][getCellXY(elem)[1]] != 17,
+    isMouseDown = false;
+
   setMessageBoardSize();
   window.onresize = setMessageBoardSize;
   updateLevelPanel();
   preloadPics(...picName); // preload the pictures in cache in case game goes off-line
+
   let levelIds = document
     .getElementById("level-panel")
     .getElementsByClassName("level-button");
+
+  // Add eventlisteners
   [...levelIds].map(el => {
     el.addEventListener("mouseenter", function(event) {
       el.style.border = "2px inset rgba(10,10,10,0.6)";
     }); // end of mouseenter event
+
     el.addEventListener("mouseleave", function(event) {
       setTimeout(
         () => (el.style.border = "2px outset rgba(10,10,10,0.6)"),
         300
       ); // button resets with small delay
     }); // end of mouseleave event
+
     el.addEventListener("click", function(event) {
       if ((ind = this.id.match(/\d+/)[0]) <= score.findIndex(el => el == 0) + 1)
         startLevel(ind); // prevent starting levels which are still unlocked
     }); // end of click event
+
     let button = document.getElementById("start-button");
     button.addEventListener("mouseenter", function(event) {
       button.style.border = "2px inset rgba(10,10,10,0.6)";
     }); // end of mouseenter event
+
     button.addEventListener("mouseleave", function(event) {
       setTimeout(
         () => (button.style.border = "2px outset rgba(10,10,10,0.6)"),
         300
       ); // button resets with small delay
     }); // end of mouseleave event
+
     button.addEventListener("click", function(event) {
       document.getElementById("message-panel").style.visibility = "hidden";
       document.getElementById("start-button").style.visibility = "hidden";
@@ -39,11 +55,11 @@ function start() {
       gameOn = true;
     }); // end of click event
   }); // end of map
+
   let fruitTds = document
     .getElementById("table-div")
     .getElementsByTagName("td");
   [...fruitTds].map(el => {
-    // simple click
     el.addEventListener("click", function() {
       if (!pause && gameOn) select(this);
     }); //and of click event
@@ -76,17 +92,9 @@ function start() {
         touchEndElem = document.elementFromPoint(x, y);
 
       // if both elements are valid elements (with row num col num => rxcy)
-      if (/r.c./g.test(el.id) && /r.c./g.test(touchEndElem.id)) {
-        const coordStart = el.id.match(/\d/g),
-          coordEnd = touchEndElem.id.match(/\d/g);
-
-        // if non of the elements are unvalid character eg.: basket or wall, swap them
-        if (
-          board[coordStart[0]][coordStart[1]] != 18 &&
-          board[coordStart[0]][coordStart[1]] != 17 &&
-          board[coordEnd[0]][coordEnd[1]] != 18 &&
-          board[coordEnd[0]][coordEnd[1]] != 17
-        ) {
+      if (isBoardCell(el) && isBoardCell(touchEndElem)) {
+        // if none of the elements are unvalid character eg.: basket or wall, swap them
+        if (isMobileCell(el) && isMobileCell(touchEndElem)) {
           select(el);
           select(touchEndElem);
         } // end if they are valid characters
