@@ -8,7 +8,9 @@ function start() {
     isMobileCell = elem =>
       board[getCellXY(elem)[0]][getCellXY(elem)[1]] != 18 &&
       board[getCellXY(elem)[0]][getCellXY(elem)[1]] != 17,
-    // scale up neighbouring cells if they are mobile
+    // scale up neighbouring cells, it's easier to see the possible swipes
+    // it gives a smoother swipe experience
+    // specially if the app runs on mobile
 
     scaleValidMoves = (elem, size) => {
       const [x, y] = getCellXY(elem),
@@ -189,17 +191,36 @@ var board = [],
   currentLevel = 0,
   hintsTimer = setInterval(() => {
     if (gameOn && !pause) timeFromLastMove++;
+
     if (timeFromLastMove == 5)
       chooseHint = hints[Math.floor(Math.random() * hints.length)]; // preselect hint way befor its use
+
     if (timeFromLastMove > 10) {
+      // rescale the boards cells, in case they've been left scaled up
+      // due to a swipe ended not on a valid cell
+      // it gives a stange look and feel, so we get things right
+      // periodically (10mp hint time seemed reasonable to incude this feature)
+      const cells = document.querySelectorAll(".board-cell");
+      cells.forEach(cell => {
+        cell.style.transform = "none";
+        cell.style.oTransform = "none";
+        cell.style.msTransform = "none";
+        cell.style.mozTransform = "none";
+        cell.style.webkitTransform = "none";
+      }); // end of cell iteration
+
       // blinking effect when no selection for xy secs
+
       let countBlink = 0;
+
       blinkElem = document.getElementById(`r${chooseHint[0]}c${chooseHint[1]}`);
       originalBackGround = blinkElem.style.backgroundColor;
+
       var blink = setInterval(() => {
         countBlink++;
         blinkElem.style.backgroundColor =
           countBlink % 2 ? "rgba(242, 86, 86, 0.5)" : originalBackGround;
+
         if (countBlink > 5) {
           clearInterval(blink);
           timeFromLastMove = 0;
@@ -1081,6 +1102,7 @@ function checkNoMoreMoves() {
       } // end if not wall
     })
   );
+
   console.log("MOVES", JSON.stringify(hints));
   if (moves == 0) {
     const flowers = []; // save flowers to put them back when new board is called
