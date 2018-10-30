@@ -106,7 +106,7 @@ function start() {
 
     el.addEventListener("mousemove", function() {
       if (!pause && gameOn && mouseIsDown) {
-        scaleValidMoves(el, 1.1);
+        scaleValidMoves(el, 1.15);
         mouseIsDown = false;
       }
     }); // end of mousemove event
@@ -114,7 +114,7 @@ function start() {
     // mobile dragging
     el.addEventListener("touchmove", function(event) {
       // find the adjecent valid board elements
-      // document.getElementById("r1c1").style.transform = "scale(1.3)";
+      scaleValidMoves(el, 1.2);
 
       event.preventDefault();
     }); // end on touchmove event
@@ -133,6 +133,7 @@ function start() {
         if (isMobileCell(el) && isMobileCell(touchEndElem)) {
           select(el);
           select(touchEndElem);
+          scaleValidMoves(el, 1); //resize to original
         } // end if they are valid characters
       } // end of they are valid table cells
     }); // end on touchend event
