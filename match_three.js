@@ -4,10 +4,12 @@ function start() {
   const getCellXY = elem => elem.id.match(/\d/g).map(Number), // get a board cell coordinates
     isBoardCell = elem => /r.c./g.test(elem.id), // check if event is on a board cell
     // check if element is not a basket or a wall, the rest are all movable elements
+
     isMobileCell = elem =>
       board[getCellXY(elem)[0]][getCellXY(elem)[1]] != 18 &&
       board[getCellXY(elem)[0]][getCellXY(elem)[1]] != 17,
     // scale up neighbouring cells if they are mobile
+
     scaleValidMoves = (elem, size) => {
       const [x, y] = getCellXY(elem),
         ids = [
@@ -24,10 +26,13 @@ function start() {
           .filter(neighbour => isMobileCell(neighbour)); // get rid of walls and baskets
 
       neighbours.forEach(neighbour => {
-        neighbour.style.transform = neighbour.style.webkitTransform = `scale(${size})`;
+        neighbour.style.transform = `scale(${size})`;
+        neighbour.style.oTransform = `scale(${size})`;
+        neighbour.style.msTransform = `scale(${size})`;
+        neighbour.style.mozTransform = `scale(${size})`;
+        neighbour.style.webkitTransform = `scale(${size})`;
       }); // end of scaling neighbours
-      console.log(neighbours);
-    };
+    }; // end of scaleValidMoves
 
   let mouseIsDown = false; // mousemove event needs to know so when drags it fanscale up neighboring
 
@@ -99,10 +104,13 @@ function start() {
         select(this);
         // rescale the boards cells
         const cells = document.querySelectorAll(".board-cell");
-        cells.forEach(
-          cell =>
-            (cell.style.transform = neighbour.style.webkitTransform = none)
-        );
+        cells.forEach(cell => {
+          cell.style.transform = "none";
+          cell.style.oTransform = "none";
+          cell.style.msTransform = "none";
+          cell.style.mozTransform = "none";
+          cell.style.webkitTransform = "none";
+        }); // end of cell iteration
         mouseIsDown = false;
       }
     }); // end of mouseup event
@@ -1096,9 +1104,13 @@ function checkNoMoreMoves() {
 function displayResult() {
   // rescale the boards cells
   const cells = document.querySelectorAll(".board-cell");
-  cells.forEach(
-    cell => (cell.style.transform = neighbour.style.webkitTransform = none)
-  );
+  cells.forEach(cell => {
+    cell.style.transform = "none";
+    cell.style.oTransform = "none";
+    cell.style.msTransform = "none";
+    cell.style.mozTransform = "none";
+    cell.style.webkitTransform = "none";
+  }); // end of cell iteration
 
   document.getElementById("message-panel").style.visibility = "visible";
   document.getElementById("start-button").style.visibility = "hidden"; // in order not to fire start button again
