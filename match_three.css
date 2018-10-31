@@ -3,6 +3,7 @@ body {
   background-color: rgb(87, 109, 126);
   color: rgba(118, 145, 207, 0.9);
   font-family: cursive;
+  font-family: "Fira Code";
 }
 
 #container {
