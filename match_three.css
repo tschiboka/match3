@@ -1,6 +1,6 @@
 @font-face {
   font-family: mario-style-font;
-  src: url(fonts/supermario256.ttf);
+  src: url(fonts/SuperMario256.ttf);
 }
 
 body {
@@ -13,6 +13,7 @@ body {
 }
 
 #container {
+  position: relative;
   background-color: rgb(63, 55, 77);
   width: 35vw;
   height: 50vw;
@@ -26,63 +27,207 @@ body {
 }
 
 #stats {
-  font-size: 1.9vw;
+  font-size: 1.8vw;
+  line-height: 3.3vw;
+  text-align: left;
+  margin-left: 1.7vw;
 }
 
+#restart-btn {
+  line-height: 2.9vw;
+  font-size: 3vw;
+  top: 1.8vw;
+  right: 1vw;
+}
+
+#back-btn {
+  font-size: 2.2vw;
+  line-height: 3.2vw;
+  top: 3.4vw;
+  right: 3.7vw;
+}
+
+#mute-btn {
+  font-size: 2.6vw;
+  line-height: 2.9vw;
+  top: 0.3vw;
+  right: 3.7vw;
+}
+
+.menu-btn {
+  position: absolute;
+  height: 3.5vw;
+  width: 3.5vw;
+  top: 1.5vw;
+  background: rgba(10, 10, 10, 0.6);
+  cursor: pointer;
+  -webkit-clip-path: polygon(
+    92.32051% 40%,
+    93.79385% 43.1596%,
+    94.69616% 46.52704%,
+    95% 50%,
+    94.69616% 53.47296%,
+    93.79385% 56.8404%,
+    92.32051% 60%,
+    79.82051% 81.65064%,
+    77.82089% 84.50639%,
+    75.35575% 86.97152%,
+    72.5% 88.97114%,
+    69.3404% 90.44449%,
+    65.97296% 91.34679%,
+    62.5% 91.65064%,
+    37.5% 91.65064%,
+    34.02704% 91.34679%,
+    30.6596% 90.44449%,
+    27.5% 88.97114%,
+    24.64425% 86.97152%,
+    22.17911% 84.50639%,
+    20.17949% 81.65064%,
+    7.67949% 60%,
+    6.20615% 56.8404%,
+    5.30384% 53.47296%,
+    5% 50%,
+    5.30384% 46.52704%,
+    6.20615% 43.1596%,
+    7.67949% 40%,
+    20.17949% 18.34936%,
+    22.17911% 15.49361%,
+    24.64425% 13.02848%,
+    27.5% 11.02886%,
+    30.6596% 9.55551%,
+    34.02704% 8.65321%,
+    37.5% 8.34936%,
+    62.5% 8.34936%,
+    65.97296% 8.65321%,
+    69.3404% 9.55551%,
+    72.5% 11.02886%,
+    75.35575% 13.02848%,
+    77.82089% 15.49361%,
+    79.82051% 18.34936%
+  );
+  clip-path: polygon(
+    92.32051% 40%,
+    93.79385% 43.1596%,
+    94.69616% 46.52704%,
+    95% 50%,
+    94.69616% 53.47296%,
+    93.79385% 56.8404%,
+    92.32051% 60%,
+    79.82051% 81.65064%,
+    77.82089% 84.50639%,
+    75.35575% 86.97152%,
+    72.5% 88.97114%,
+    69.3404% 90.44449%,
+    65.97296% 91.34679%,
+    62.5% 91.65064%,
+    37.5% 91.65064%,
+    34.02704% 91.34679%,
+    30.6596% 90.44449%,
+    27.5% 88.97114%,
+    24.64425% 86.97152%,
+    22.17911% 84.50639%,
+    20.17949% 81.65064%,
+    7.67949% 60%,
+    6.20615% 56.8404%,
+    5.30384% 53.47296%,
+    5% 50%,
+    5.30384% 46.52704%,
+    6.20615% 43.1596%,
+    7.67949% 40%,
+    20.17949% 18.34936%,
+    22.17911% 15.49361%,
+    24.64425% 13.02848%,
+    27.5% 11.02886%,
+    30.6596% 9.55551%,
+    34.02704% 8.65321%,
+    37.5% 8.34936%,
+    62.5% 8.34936%,
+    65.97296% 8.65321%,
+    69.3404% 9.55551%,
+    72.5% 11.02886%,
+    75.35575% 13.02848%,
+    77.82089% 15.49361%,
+    79.82051% 18.34936%
+  );
+}
 #table-div {
   border: rgba(10, 10, 10, 0.9) inset 2px;
   border-radius: 10px;
   margin: 1vw;
 }
-
 #board {
   border-collapse: collapse;
 }
-
 td {
   width: 3.5vw;
   height: 3.5vw;
   border: 1px solid rgba(10, 10, 10, 0.2);
   background-size: cover;
+  cursor: pointer;
 }
-
 #progressbar {
-  margin: 1vw;
   position: relative;
   height: 1.15vw;
   width: auto;
-  background-color: rgba(10, 10, 10, 0.4);
-  border: rgba(10, 10, 10, 0.9) inset 2px;
-  border-radius: 50px;
-  padding: 3px;
+  margin: 1vw;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+  clip-path: polygon(
+    0 10%,
+    10% 0,
+    90% 0,
+    100% 10%,
+    100% 90%,
+    90% 100%,
+    10% 100%,
+    0 90%
+  );
 }
-
 #progressbar > div {
   position: absolute;
-  height: 1vw;
-  border-radius: 50px;
+  height: 1.15vw;
 }
-
 #progress {
-  margin-top: -2px;
-  background: linear-gradient(to right, rgb(228, 204, 143), rgb(207, 143, 143));
   width: auto;
+  height: 1.18vw;
+  background: #ff7777;
+  /* Old browsers */
+  background: -moz-linear-gradient(
+    left,
+    #ff7777 0%,
+    #ffff42 32%,
+    #8afc96 66%,
+    #afe8ff 100%
+  );
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    left,
+    #ff7777 0%,
+    #ffff42 32%,
+    #8afc96 66%,
+    #afe8ff 100%
+  );
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ff7777 0%,
+    #ffff42 32%,
+    #8afc96 66%,
+    #afe8ff 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   z-index: 2;
-  border: white outset 2px;
   visibility: hidden;
   opacity: 0.6;
 }
-
 #signature {
   width: 100%;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.2);
   z-index: 1;
   text-shadow: -1px -1px black;
   font-size: 1vw;
   font-family: "Fira Code";
   text-align: center;
 }
-
 .panel {
   visibility: hidden;
   background-color: rgb(63, 55, 77);
@@ -93,15 +238,12 @@ td {
   border-radius: 10px;
   font-size: 2vw;
 }
-
 #message-panel > p {
   margin: 1vw 1vw 5vw 1vw;
 }
-
 #level-panel {
   visibility: visible;
 }
-
 #level-panel td {
   border: 2px outset rgba(10, 10, 10, 0.6);
   background-color: rgba(0, 0, 0, 0.5);
@@ -110,51 +252,41 @@ td {
   text-align: center;
   border-radius: 5px;
 }
-
 .level-text {
   padding: 0;
   margin: 0;
   font-size: 1.3vw;
 }
-
 .level-star {
   font-weight: lighter;
   color: rgba(204, 196, 145, 0.5);
 }
-
 #start-button {
   border: 2px outset rgba(10, 10, 10, 0.6);
   border-radius: 10px;
   margin: 1vw 5vw 1vw 5vw;
   background-color: rgba(0, 0, 0, 0.3);
 }
-
 #result-stars {
   font-size: 3vw;
   color: rgb(20, 20, 20);
   opacity: 0.5;
 }
-
 #no-more-moves > p {
   margin-top: 10vw;
 }
-
 #r0c0 {
   border-radius: 10px 0 0 0;
 }
-
 #r0c9 {
   border-radius: 0 10px 0 0;
 }
-
 #r9c9 {
   border-radius: 0 0 10px 0;
 }
-
 #r9c0 {
   border-radius: 0 0 0 10px;
 }
-
 .flying-points {
   display: block;
   position: absolute;
@@ -170,7 +302,6 @@ td {
   -webkit-animation: animate-flying-points 1.2s
     cubic-bezier(0.47, 0, 0.745, 0.715);
 }
-
 @keyframes animate-flying-points {
   0% {
     opacity: 1;
@@ -185,7 +316,6 @@ td {
     transform: translateY(-26vh) scale(0.6) rotate(50deg);
   }
 }
-
 @-webkit-keyframes animate-flying-points {
   0% {
     opacity: 1;
@@ -200,49 +330,62 @@ td {
     -webkit-transform: translateY(-25vh) scale(0.6) rotate(50deg);
   }
 }
-
 @media (max-width: 600px) {
   #container {
     width: 90vw;
     height: 95vh;
   }
-
   td {
     width: 9vw;
     height: 9vw;
   }
-
   #stats {
-    font-size: 5vw;
+    font-size: 4.8vw;
+    line-height: 8.5vw;
   }
-
   .level-text {
     font-size: 3vw;
   }
-
   #progressbar,
   #progressbar > div {
     height: 2.5vh;
   }
-
   #progressbar {
     margin-top: 3vw;
   }
-
   #signature {
     font-size: 2vh;
   }
-
   #result-stars,
   .panel {
     font-size: 4vh;
   }
-
   .flying-points {
     font-size: 7.2vw;
   }
+  .menu-btn {
+    width: 8.3vw;
+    height: 8.3vw;
+  }
+  #restart-btn {
+    line-height: 6.9vw;
+    font-size: 7.9vw;
+    top: 9.3vw;
+    right: 6.8vw;
+  }
+  #back-btn {
+    font-size: 5.2vw;
+    line-height: 9.2vw;
+    top: 4.8vw;
+    right: 1vw;
+  }
+  #mute-btn {
+    font-size: 6.6vw;
+    line-height: 7.9vw;
+    top: 0.3vw;
+    right: 6.8vw;
+  }
 }
-
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
   html {
     transform-origin: left top;
@@ -255,25 +398,20 @@ td {
     top: 100%;
     left: 0;
   }
-
   #container {
     width: 100vh;
     height: 100vw;
   }
-
   td {
     width: 10vh;
     height: 10vh;
   }
-
   #stats {
     font-size: 3.5vw;
   }
-
   #level-panel td {
     font-size: 3vw;
   }
-
   .level-text {
     font-size: 1.8vw;
   }

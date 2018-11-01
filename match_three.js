@@ -1,4 +1,5 @@
 // jshint esversion: 6
+// version 1.2
 
 function start() {
   const getCellXY = elem => elem.id.match(/\d/g).map(Number), // get a board cell coordinates
@@ -1048,8 +1049,8 @@ function collectPoints(ids) {
 
   flyingP.classList.add("flying-points");
   flyingP.innerHTML = p; // set flying point to the actual value
-  const container = document.getElementById("container");
-  container.appendChild(flyingP);
+  const body = document.getElementsByTagName("body")[0];
+  body.appendChild(flyingP);
 
   console.log(flyingP);
   // set the coordinates of the flying point
@@ -1067,7 +1068,7 @@ function collectPoints(ids) {
 
   // destroy point divs after use (1.2s)
   setTimeout(() => {
-    container.removeChild(flyingP);
+    body.removeChild(flyingP);
   }, 1200); // end of timer
 } // end of collectPoints
 
