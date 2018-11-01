@@ -155,34 +155,91 @@ td {
   border-radius: 0 0 0 10px;
 }
 
+.flying-points {
+  display: block;
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  height: 1.5vw;
+  width: 1.5vw;
+  color: rgb(88, 82, 65);
+  font-size: 2.1vw;
+  -webkit-text-stroke: 2px rgb(223, 215, 147);
+  text-shadow: 4px 4px 4px black;
+  animation: animate-flying-points 1s linear;
+  -webkit-animation: animate-flying-points 1.2s
+    cubic-bezier(0.47, 0, 0.745, 0.715);
+}
+
+@keyframes animate-flying-points {
+  0% {
+    opacity: 1;
+    transform: translateY(0px) scale(1.2) rotate(35deg);
+  }
+  50% {
+    transform: translateY(-8vh) scale(0.9) rotate(-20deg);
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.5;
+    transform: translateY(-26vh) scale(0.6) rotate(50deg);
+  }
+}
+
+@-webkit-keyframes animate-flying-points {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0px) scale(1.2) rotate(35deg);
+  }
+  50% {
+    -webkit-transform: translateY(-8vh) scale(0.9) rotate(-20deg);
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.5;
+    -webkit-transform: translateY(-25vh) scale(0.6) rotate(50deg);
+  }
+}
+
 @media (max-width: 600px) {
   #container {
     width: 90vw;
     height: 95vh;
   }
+
   td {
     width: 9vw;
     height: 9vw;
   }
+
   #stats {
     font-size: 5vw;
   }
+
   .level-text {
     font-size: 3vw;
   }
+
   #progressbar,
   #progressbar > div {
     height: 2.5vh;
   }
+
   #progressbar {
     margin-top: 3vw;
   }
+
   #signature {
     font-size: 2vh;
   }
+
   #result-stars,
   .panel {
     font-size: 4vh;
+  }
+
+  .flying-points {
+    font-size: 7.2vw;
   }
 }
 

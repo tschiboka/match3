@@ -937,44 +937,44 @@ const swap = (...a) => {
 
 function checkMatches() {
   let MATCHES = [];
+
   board.map((row, ri) =>
     row.map((_, ci) => {
-      const b = (x, y) => (board[x] || [])[y]; // avoid undefined rows, undefined colums work though
-      const [c, u1, u2, l1, l2] = [
-        b(ri, ci),
-        b(ri - 1, ci),
-        b(ri - 2, ci),
-        b(ri, ci - 1),
-        b(ri, ci - 2)
-      ]; // cause here youll hit problems then: (b[-1][0]) reference error
+      const b = (x, y) => (board[x] || [])[y], // avoid undefined rows, undefined colums work though
+        [c, u1, u2, l1, l2] = [
+          b(ri, ci),
+          b(ri - 1, ci),
+          b(ri - 2, ci),
+          b(ri, ci - 1),
+          b(ri, ci - 2)
+        ]; // cause here youll hit problems then: (b[-1][0]) reference error
       if (c == u1 && c == u2 && c != 18 && c != 17)
         MATCHES.push(...[`${ri}${ci}`, `${ri - 1}${ci}`, `${ri - 2}${ci}`]); // check vertical matches dont match WALLS and BASKET!
       if (c == l1 && c == l2 && c != 18 && c != 17)
         MATCHES.push(...[`${ri}${ci}`, `${ri}${ci - 1}`, `${ri}${ci - 2}`]); // and horizontal ones3
     })
   ); // end of map board
+
   const idsToFade = [...new Set(MATCHES)].map(e => {
     selectable = false; // disallow selection while board rearrangement is in prossess
     board[e[0]][e[1]] = 10;
     return `r${e[0]}c${e[1]}`;
-  });
+  }); // end of ids to fade declaration
+
   if (idsToFade.length > 0) {
     let opacity = 1;
-    const timer = setInterval(
-      () =>
-        opacity >= 0
-          ? (() => {
-              idsToFade.map(
-                e => (document.getElementById(e).style.opacity = opacity)
-              );
-              opacity -= 0.1;
-            })()
-          : (() => {
-              dripDown(idsToFade);
-              clearInterval(timer);
-            })(),
-      40
-    ); // end of setInterval
+
+    const timer = setInterval(() => {
+      if (opacity >= 0) {
+        idsToFade.map(
+          e => (document.getElementById(e).style.opacity = opacity)
+        );
+        opacity -= 0.1;
+      } else {
+        dripDown(idsToFade);
+        clearInterval(timer);
+      } // end of else
+    }, 40); // end of setInterval
   } // end of if idsToFade
   return !!idsToFade.length;
 } // end of checkMatches
@@ -984,15 +984,18 @@ function dripDown(ids) {
     item = document.getElementById(e);
     item.style.opacity = 1; // reset opacity on ids
   }); // end of forEach ids
+
   const rearrangeCol = O => {
     const W = O.reduce(
       (p, c, i) => (c == 18 ? [...p, [i, 18]] : c == 17 ? [...p, [i, 17]] : p),
       []
     ); // wall, basket [index, num]
+
     let NW = [
       ...O.filter(e => e == 10),
       ...O.filter(e => e != 10 && e != 18 && e != 17)
     ]; // spread empties and concat w left (not walls and baskets!)
+
     W.forEach(wInd => NW.splice(wInd[0], 0, wInd[1])); // paste walls back to their original space
     return NW;
   }; // end of rearrangeCol
@@ -1038,7 +1041,34 @@ function dripDown(ids) {
 function collectPoints(ids) {
   const p = [0, 0, 5, 15, 50, 70, 100][(l = ids.length - 1) > 6 ? 6 : l]; // 100 point is the max per turn
   points += p;
-  document.getElementById("points").innerHTML = points;
+  document.getElementById("points").innerHTML = points + "";
+
+  // display the recieved points on the board too
+  const flyingP = document.createElement("div");
+
+  flyingP.classList.add("flying-points");
+  flyingP.innerHTML = p; // set flying point to the actual value
+  const container = document.getElementById("container");
+  container.appendChild(flyingP);
+
+  console.log(flyingP);
+  // set the coordinates of the flying point
+  const positions = ids.map(e =>
+      document.getElementById(e).getBoundingClientRect()
+    ),
+    xCoords = positions.map(e => e.x).sort((a, b) => a > b),
+    yCoords = positions.map(e => e.y).sort((a, b) => a > b),
+    avgX = xCoords.reduce((acc, cur) => acc + cur) / xCoords.length,
+    avgY = yCoords.reduce((acc, cur) => acc + cur) / yCoords.length;
+
+  // set coordinates
+  flyingP.style.top = Math.round(avgY) + "px";
+  flyingP.style.left = Math.round(avgX) + "px";
+
+  // destroy point divs after use (1.2s)
+  setTimeout(() => {
+    container.removeChild(flyingP);
+  }, 1200); // end of timer
 } // end of collectPoints
 
 function startTimer(mps = 60) {
