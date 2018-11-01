@@ -1,9 +1,15 @@
+@font-face {
+  font-family: mario-style-font;
+  src: url(fonts/supermario256.ttf);
+}
+
 body {
   height: 100%;
   background-color: rgb(87, 109, 126);
   color: rgba(118, 145, 207, 0.9);
   font-family: cursive;
   font-family: "Fira Code";
+  font-family: "mario-style-font";
 }
 
 #container {
@@ -20,7 +26,7 @@ body {
 }
 
 #stats {
-  font-size: 1.5vw;
+  font-size: 1.9vw;
 }
 
 #table-div {
@@ -73,6 +79,7 @@ td {
   z-index: 1;
   text-shadow: -1px -1px black;
   font-size: 1vw;
+  font-family: "Fira Code";
   text-align: center;
 }
 
@@ -99,7 +106,6 @@ td {
   border: 2px outset rgba(10, 10, 10, 0.6);
   background-color: rgba(0, 0, 0, 0.5);
   font-size: 0.9vw;
-  font-weight: bold;
   padding-top: 0;
   text-align: center;
   border-radius: 5px;
@@ -108,7 +114,7 @@ td {
 .level-text {
   padding: 0;
   margin: 0;
-  font-size: 1.1vw;
+  font-size: 1.3vw;
 }
 
 .level-star {
