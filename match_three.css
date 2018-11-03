@@ -27,6 +27,7 @@ body {
 }
 
 #stats {
+  text-shadow: none;
   font-size: 1.8vw;
   line-height: 3.3vw;
   text-align: left;

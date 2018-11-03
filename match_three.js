@@ -43,25 +43,25 @@ function start() {
   window.onresize = setMessageBoardSize;
   updateLevelPanel();
   preloadPics(...picName); // preload the pictures in cache in case game goes off-line
-
-  let levelIds = document
-    .getElementById("level-panel")
-    .getElementsByClassName("level-button");
-
   // Add eventlisteners
-  [...levelIds].map(el => {
-    el.addEventListener("mouseenter", function(event) {
-      el.style.border = "2px inset rgba(10,10,10,0.6)";
-    }); // end of mouseenter event
+
+  // LEVEL TABLE EVENT LISTENERS
+  // delegate level events, so the table gets the event listener
+  // and event triggers when event target is a valid td
+  let levelTbl = document.getElementById("levels");
+
+  levelTbl.addEventListener("mouseout", function(event) {
+    console.log(event.target, this);
+    /*el.style.border = "2px inset rgba(10,10,10,0.6)";
 
     el.addEventListener("mouseleave", function(event) {
       setTimeout(
         () => (el.style.border = "2px outset rgba(10,10,10,0.6)"),
         300
-      ); // button resets with small delay
-    }); // end of mouseleave event
+      );*/ // button resets with small delay
+  }); // end of mouseleave event
 
-    el.addEventListener("click", function(event) {
+  /*el.addEventListener("click", function(event) {
       if ((ind = this.id.match(/\d+/)[0]) <= score.findIndex(el => el == 0) + 1)
         startLevel(ind); // prevent starting levels which are still unlocked
     }); // end of click event
@@ -77,7 +77,8 @@ function start() {
         300
       ); // button resets with small delay
     }); // end of mouseleave event
-
+    
+    // MESSAGE BOARD EVENT LISTENERS
     button.addEventListener("click", function(event) {
       document.getElementById("message-panel").style.visibility = "hidden";
       document.getElementById("start-button").style.visibility = "hidden";
@@ -85,7 +86,8 @@ function start() {
       gameOn = true;
     }); // end of click event
   }); // end of map
-
+*/
+  // GAME BOARD TABLE EVENT LISTENER
   let fruitTds = document
     .getElementById("table-div")
     .getElementsByTagName("td");
