@@ -50,10 +50,21 @@ function start() {
   // and event triggers when event target is a valid td
   let levelTbl = document.getElementById("levels");
 
-  levelTbl.addEventListener("mouseout", function(event) {
-    console.log(event.target, this);
-    /*el.style.border = "2px inset rgba(10,10,10,0.6)";
+  levelTbl.addEventListener("mouseover", function(event) {
+    // check if target is any part of a level btn (class="lvl-btn-event_xy")
+    const isLvl = [...event.target.classList]
+      .map(e => (/lvl-btn-event_\d+/g.test(e) ? e : false))
+      .filter(e => !!e);
 
+    if (isLvl[0]) {
+      // extract level id
+      const btnName = "l" + isLvl[0].match(/\d+/g)[0],
+        btn = document.getElementById(btnName);
+
+      btn.style.border = "2px inset rgba(10,10,10,0.6)";
+      console.log(btn);
+    }
+    /*
     el.addEventListener("mouseleave", function(event) {
       setTimeout(
         () => (el.style.border = "2px outset rgba(10,10,10,0.6)"),

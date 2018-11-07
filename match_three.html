@@ -59,11 +59,12 @@
               lvl++;
               let cell = document.createElement("td");
               cell.id = `l${lvl}`;
-              cell.className = "level-button";
-              let html = `<p class='level-text'>${lvl}</p><p id=lr${r}c${c}-stars class='level-text level-star'>` +
-                `<span id=star${lvl}_1>&#9734;</span>` +
-                `<span id=star${lvl}_2>&#9734;</span>` +
-                `<span id=star${lvl}_3>&#9734;</span></p>`;
+              cell.className = `level-button lvl-btn-event_${lvl}`;
+              let html = `<p class='level-text lvl-btn-event_${lvl}'>${lvl}</p>` +
+                `<p id=lr${r}c${c}-stars class="level-text level-star lvl-btn-event_${lvl}">` +
+                `<span id="star${lvl}_1" class="lvl-btn-event_${lvl}">&#9734;</span>` +
+                `<span id="star${lvl}_2" class="lvl-btn-event_${lvl}">&#9734;</span>` +
+                `<span id="star${lvl}_3" class="lvl-btn-event_${lvl}">&#9734;</span></p>`;
               cell.innerHTML = html;
               row.appendChild(cell);
             } // end of onner for
